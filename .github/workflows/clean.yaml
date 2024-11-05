@@ -1,0 +1,16 @@
+name: clean
+on: [ delete ]
+
+jobs:
+  delete-docker:
+    if: github.event.ref_type == 'branch'
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    uses: a-novel/workflows/.github/workflows/clean-container.yaml@master
+    with:
+      repository_name: ${{ github.event.repository.name }}
+      ref: ${{ github.event.ref }}
+      actor: ${{ github.actor }}

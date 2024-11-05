@@ -1,0 +1,27 @@
+name: main
+
+on: [ push ]
+
+jobs:
+  prepare:
+    uses: a-novel/workflows/.github/workflows/prepare-go.yaml@master
+
+  test:
+    needs: [ prepare ]
+    uses: a-novel/workflows/.github/workflows/test-go.yaml@master
+    secrets:
+      codecov_token: ${{ secrets.CODECOV_TOKEN }}
+
+  build:
+    needs: [ prepare ]
+    uses: a-novel/workflows/.github/workflows/build-go-grpc.yaml@master
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    with:
+      repository: ${{ github.repository }}
+      repository_name: ${{ github.event.repository.name }}
+      ref: ${{ github.head_ref || github.ref_name }}
+      actor: ${{ github.actor }}

@@ -1,0 +1,20 @@
+with-expecter: true
+packages:
+  github.com/a-novel/uservice-passkeys/pkg/dao:
+    config:
+      all: true
+      recursive: true
+      outpkg: daomocks
+      dir: pkg/dao/mocks
+  github.com/a-novel/uservice-passkeys/pkg/services:
+    config:
+      all: true
+      recursive: true
+      outpkg: servicesmocks
+      dir: pkg/services/mocks
+  github.com/a-novel/uservice-passkeys/pkg/handlers:
+    config:
+      all: true
+      recursive: true
+      outpkg: handlersmocks
+      dir: pkg/handlers/mocks
